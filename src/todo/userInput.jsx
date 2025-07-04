@@ -13,9 +13,15 @@ export const UserInput = () => {
     userInputRef
   } = useContext(TodoContext);
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const formInput = userInputRef.current.value;
+    if(formInput !== null || formInput.length > 0) setTodoData(); 
+  }
+
   return (
-    <form className="flex">
-      <Input className="" ref={userInputRef}/>
+    <form className="flex" onSubmit={handleFormSubmit}>
+      <Input type="text" className="" ref={userInputRef}/>
       <button>
         <MdLibraryAdd size={30} className="md:cursor-pointer"/>
       </button>

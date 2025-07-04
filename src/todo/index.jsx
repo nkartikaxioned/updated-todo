@@ -3,7 +3,12 @@ import { createContext, useEffect, useRef, useState } from "react";
 export const TodoContext = createContext();
 export const TodoDataProvider = ({ children }) => {
   const localKey = "Todo-App";
-  const [todoValue, setTodoValue] = useState("");
+  const [todoValue, setTodoValue] = useState({
+    id: "",
+    content: "",
+    checked: false,
+    date: "",
+  });
   const [todoData, setTodoData] = useState(() => {
     const storedTodo = localStorage.getItem(localKey);
     return storedTodo ? JSON.parse(storedTodo) : [];
@@ -22,7 +27,7 @@ export const TodoDataProvider = ({ children }) => {
         setTodoValue,
         todoValue,
         setTodoData,
-        userInputRef
+        userInputRef,
       }}
     >
       {children}
