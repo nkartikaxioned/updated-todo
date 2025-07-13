@@ -3,6 +3,14 @@ import { createContext, useEffect, useRef, useState } from "react";
 export const TodoContext = createContext();
 export const TodoDataProvider = ({ children }) => {
   const localKey = "Todo-App";
+  const date = new Date();
+  const time = date.toLocaleTimeString([], {
+    hour : 'numeric',
+    minute : 'numeric',
+    hour12: true,
+  }); 
+  const currentDate = date.toLocaleDateString();
+
   const [todoValue, setTodoValue] = useState({
     id: "",
     content: "",
@@ -13,7 +21,7 @@ export const TodoDataProvider = ({ children }) => {
     const storedTodo = localStorage.getItem(localKey);
     return storedTodo ? JSON.parse(storedTodo) : [];
   });
-
+  const [displayInput, setDisplayInput] = useState(false);
   const userInputRef = useRef(null);
 
   useEffect(() => {
@@ -28,6 +36,10 @@ export const TodoDataProvider = ({ children }) => {
         todoValue,
         setTodoData,
         userInputRef,
+        time,
+        currentDate,
+        displayInput,
+        setDisplayInput
       }}
     >
       {children}
