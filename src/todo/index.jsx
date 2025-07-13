@@ -9,21 +9,19 @@ export const TodoDataProvider = ({ children }) => {
     minute : 'numeric',
     hour12: true,
   }); 
+
   const currentDate = date.toLocaleDateString();
 
-  const [todoValue, setTodoValue] = useState({
-    id: "",
-    content: "",
-    checked: false,
-    date: "",
-  });
   const [todoData, setTodoData] = useState(() => {
     const storedTodo = localStorage.getItem(localKey);
     return storedTodo ? JSON.parse(storedTodo) : [];
   });
+  
   const [displayInput, setDisplayInput] = useState(false);
   const userInputRef = useRef(null);
+  const generateId = () => `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
+  
   useEffect(() => {
     localStorage.setItem(localKey, JSON.stringify(todoData));
   }, [todoData]);
@@ -32,14 +30,13 @@ export const TodoDataProvider = ({ children }) => {
     <TodoContext.Provider
       value={{
         todoData,
-        setTodoValue,
-        todoValue,
         setTodoData,
         userInputRef,
         time,
         currentDate,
         displayInput,
-        setDisplayInput
+        setDisplayInput,
+        generateId
       }}
     >
       {children}
