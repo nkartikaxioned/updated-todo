@@ -121,5 +121,10 @@
   h2 { @apply text-2xl; }
   h3 { @apply text-lg; }
   h4 { @apply text-l; }
+
+  button { @apply cursor-pointer; }
+  .custom-orange-border { @apply border border-orange-400; }
+  .table-bg-gradient { @apply bg-linear-to-t from-orange-200 to-orange-500; }
+  textarea { @apply border border-gray-400 bg-transparent px-3 py-1  }
 }
 
