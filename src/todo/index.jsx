@@ -20,7 +20,7 @@ export const TodoDataProvider = ({ children }) => {
   const [displayInput, setDisplayInput] = useState(false);
   const userInputRef = useRef(null);
   const generateId = () => `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-
+  const [editTodo, setEditTodo] = useState("");
   
   useEffect(() => {
     localStorage.setItem(localKey, JSON.stringify(todoData));
@@ -36,7 +36,9 @@ export const TodoDataProvider = ({ children }) => {
         currentDate,
         displayInput,
         setDisplayInput,
-        generateId
+        generateId,
+        editTodo,
+        setEditTodo
       }}
     >
       {children}
