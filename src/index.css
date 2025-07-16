@@ -122,9 +122,20 @@
   h3 { @apply text-lg; }
   h4 { @apply text-l; }
 
+  .wrapper {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
   button { @apply cursor-pointer; }
+
   .custom-orange-border { @apply border border-orange-400; }
-  .table-bg-gradient { @apply bg-linear-to-t from-orange-200 to-orange-500; }
+
+  .table-bg-gradient { @apply bg-linear-to-r from-orange-400 to-orange-600; }
+
   textarea { @apply border border-gray-400 bg-transparent px-3 py-1  }
+
+  table.custom-orange-border { @apply w-4/5 border-collapse border rounded-[8px] overflow-hidden border-spacing-0 }
 }
 

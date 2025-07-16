@@ -1,19 +1,22 @@
 import { useContext } from "react";
 import { TodoContext } from ".";
-import { MdOutlineDeleteSweep, MdOutlineEditNote } from "react-icons/md";
+import {
+  MdDelete,
+  MdOutlineCancel,
+  MdOutlineEditNote,
+} from "react-icons/md";
+import { IoMdSave } from "react-icons/io";
 
 export const TodoList = () => {
   const {
     todoData,
     setTodoData,
-    userInputRef,
     time,
     currentDate,
-    displayInput,
-    setDisplayInput,
-    generateId,
     editTodo,
-    setEditTodo
+    setEditTodo,
+    editTodoValue,
+    setEditTodoValue,
   } = useContext(TodoContext);
 
   const handleCheckBox = (elementId) => {
@@ -31,68 +34,112 @@ export const TodoList = () => {
     setTodoData(afterDelete);
   };
 
-  const handleEdit = (id) => {
-    setEditTodo(id);
+  const handleEdit = (todo, e) => {
+    setEditTodo(todo.id);
+    setEditTodoValue(todo.content);
+  };
 
-    
-  }
+  const handleCancle = () => {
+    setEditTodo(null);
+  };
+
+  const handlesave = (id) => {
+    const editedTodoList = todoData.map((element) =>
+      element.id === id
+        ? {
+            ...element,
+            content: editTodoValue,
+            time: time,
+            currentDate: currentDate,
+          }
+        : element
+    );
+    setTodoData(editedTodoList);
+    setEditTodo(null);
+    setEditTodoValue(null);
+  };
 
   if (todoData.length > 0) {
     return (
-      <table className="custom-orange-border">
+      <table className="custom-orange-border shadow mt-5">
         <thead>
-          <tr>
-            <th className="px-5 py-2.5 custom-orange-border table-bg-gradient">
-              Status
-            </th>
-            <th className="px-5 py-2.5 custom-orange-border table-bg-gradient">
-              Todo
-            </th>
-            <th className="px-5 py-2.5 custom-orange-border table-bg-gradient">
-              Created at
-            </th>
-            <th className="px-5 py-2.5 custom-orange-border table-bg-gradient">
-              Actions
-            </th>
+          <tr className="text-white table-bg-gradient">
+            <th className="px-5 py-2.5">Status</th>
+            <th className="px-5 py-2.5">Todo</th>
+            <th className="px-5 py-2.5">Created at</th>
+            <th className="px-5 py-2.5">Actions</th>
           </tr>
         </thead>
         <tbody>
           {todoData.map((currentTodo) => {
             return (
-              <tr key={currentTodo.id} className="custom-orange-border">
-                <td className="px-5 py-2.5 text-center custom-orange-border">
+              <tr key={currentTodo.id} className="hover:bg-orange-100 h-24">
+                <td className="px-5 py-2.5 text-center h-24">
                   <input
-                    className="accent-orange-400"
+                    className="accent-orange-400 h-4 w-4"
                     checked={currentTodo.checked}
                     type="checkbox"
                     onChange={(e) => handleCheckBox(currentTodo.id)}
                   />
                 </td>
-                <td className="px-5 py-2.5 custom-orange-border">
-                  {currentTodo.content}
+                <td
+                  className={`px-5 py-2.5 w-80 ${
+                    currentTodo.checked
+                      ? "line-through decoration-orange-700"
+                      : null
+                  }`}
+                >
+                  {editTodo === currentTodo.id ? (
+                    <textarea
+                      className="border border-orange-400 rounded-md max-h-20 focus:outline-none"
+                      value={editTodoValue}
+                      onChange={(e) => setEditTodoValue(e.target.value)}
+                    ></textarea>
+                  ) : (
+                    currentTodo.content
+                  )}
                 </td>
-                <td className="flex flex-col text-center px-5 py-2.5">
+                <td className="flex flex-col text-center px-5 py-2.5 text-gray-500 h-24 justify-center">
                   <span>{currentTodo.time}</span>
-                  <span className="pt-1.5">{currentTodo.date}</span>
+                  <span className="pt-0.5">{currentTodo.date}</span>
                 </td>
-                <td className="custom-orange-border">
-                  <button className="px-5 py-2.5 pr-1.5" title="Edit Todo">
-                    <MdOutlineEditNote
-                      size={25}
-                      className="hover:fill-orange-400"
-                      onClick={(e) => handleEdit(currentTodo.id)}
-                    />
-                  </button>
-                  <button
-                    className="px-5 py-2.5 pl-1.5"
-                    title="Delete"
-                    onClick={(e) => handleDelete(currentTodo.id)}
-                  >
-                    <MdOutlineDeleteSweep
-                      size={22}
-                      className="hover:fill-orange-400"
-                    />
-                  </button>
+                <td className="align-middle text-center">
+                  {editTodo === currentTodo.id ? (
+                    <>
+                      <button className="px-5 py-2.5 pr-1.5" title="Edit Todo">
+                        <MdOutlineCancel
+                          size={20}
+                          className="hover:fill-orange-400"
+                          title="Cancel Edit"
+                          onClick={() => handleCancle()}
+                        />
+                      </button>
+                      <button
+                        className="px-5 py-2.5 pl-1.5"
+                        title="Save"
+                        onClick={() => handlesave(currentTodo.id)}
+                      >
+                        <IoMdSave size={20} className="hover:fill-red-500" />
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button className="px-5 py-2.5 pr-1.5" title="Edit Todo">
+                        <MdOutlineEditNote
+                          size={25}
+                          className="hover:fill-orange-400"
+                          onClick={(e) => handleEdit(currentTodo, e)}
+                        />
+                      </button>
+                      <button
+                        className="px-5 py-2.5 pl-1.5"
+                        title="Delete"
+                        onClick={() => handleDelete(currentTodo.id)}
+                      >
+                        <MdDelete size={20} className="hover:fill-red-500" />
+                      </button>
+                    </>
+                  )}
                 </td>
               </tr>
             );

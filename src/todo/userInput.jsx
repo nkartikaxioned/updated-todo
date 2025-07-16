@@ -5,13 +5,10 @@ import { Textarea } from "@/components/ui/textarea";
 
 export const UserInput = () => {
   const {
-    todoData,
     setTodoData,
     userInputRef,
     time,
     currentDate,
-    displayInput,
-    setDisplayInput,
     generateId,
   } = useContext(TodoContext);
 
