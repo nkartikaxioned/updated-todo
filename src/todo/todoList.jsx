@@ -1,10 +1,6 @@
 import { useContext } from "react";
 import { TodoContext } from ".";
-import {
-  MdDelete,
-  MdOutlineCancel,
-  MdOutlineEditNote,
-} from "react-icons/md";
+import { MdDelete, MdOutlineCancel, MdOutlineEditNote } from "react-icons/md";
 import { IoMdSave } from "react-icons/io";
 
 export const TodoList = () => {
@@ -17,6 +13,8 @@ export const TodoList = () => {
     setEditTodo,
     editTodoValue,
     setEditTodoValue,
+    filteredTodoData,
+    setFilteredTodoData,
   } = useContext(TodoContext);
 
   const handleCheckBox = (elementId) => {
@@ -59,7 +57,7 @@ export const TodoList = () => {
     setEditTodoValue(null);
   };
 
-  if (todoData.length > 0) {
+  if (filteredTodoData.length > 0) {
     return (
       <table className="custom-orange-border shadow mt-5">
         <thead>
@@ -71,7 +69,7 @@ export const TodoList = () => {
           </tr>
         </thead>
         <tbody>
-          {todoData.map((currentTodo) => {
+          {filteredTodoData.map((currentTodo) => {
             return (
               <tr key={currentTodo.id} className="hover:bg-orange-100 h-24">
                 <td className="px-5 py-2.5 text-center h-24">

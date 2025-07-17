@@ -5,10 +5,10 @@ export const TodoDataProvider = ({ children }) => {
   const localKey = "Todo-App";
   const date = new Date();
   const time = date.toLocaleTimeString([], {
-    hour : 'numeric',
-    minute : 'numeric',
+    hour: "numeric",
+    minute: "numeric",
     hour12: true,
-  }); 
+  });
 
   const currentDate = date.toLocaleDateString();
 
@@ -16,16 +16,26 @@ export const TodoDataProvider = ({ children }) => {
     const storedTodo = localStorage.getItem(localKey);
     return storedTodo ? JSON.parse(storedTodo) : [];
   });
-  
+
   const [displayInput, setDisplayInput] = useState(false);
   const userInputRef = useRef(null);
-  const generateId = () => `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  const generateId = () =>
+    `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   const [editTodo, setEditTodo] = useState("");
   const [editTodoValue, setEditTodoValue] = useState("");
-  
+  const [filteredTodoData, setFilteredTodoData] = useState([]);
+  const [filterValue, setFilterValue] = useState("all");
+
   useEffect(() => {
     localStorage.setItem(localKey, JSON.stringify(todoData));
-  }, [todoData]);
+
+    const filtered =
+      filterValue === "checked"
+        ? todoData.filter((todo) => todo.checked)
+        : todoData;
+
+    setFilteredTodoData(filtered);
+  }, [todoData, filterValue]);
 
   return (
     <TodoContext.Provider
@@ -40,8 +50,12 @@ export const TodoDataProvider = ({ children }) => {
         generateId,
         editTodo,
         setEditTodo,
-        editTodoValue, 
-        setEditTodoValue
+        editTodoValue,
+        setEditTodoValue,
+        filteredTodoData,
+        setFilteredTodoData,
+        filterValue,
+        setFilterValue,
       }}
     >
       {children}

@@ -36,7 +36,7 @@ export const UserInput = () => {
     <form className="flex" onSubmit={handleFormSubmit}>
       <Textarea
         type="text"
-        className=""
+        className="min-w-36"
         ref={userInputRef}
         placeholder="Need a remainder?"
       />
