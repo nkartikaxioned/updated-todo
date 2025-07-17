@@ -14,6 +14,7 @@ export const UserInput = () => {
 
   const id = generateId();
 
+  // function to add new todo
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const formInput = userInputRef.current.value;

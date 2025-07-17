@@ -17,6 +17,7 @@ export const TodoList = () => {
     setFilteredTodoData,
   } = useContext(TodoContext);
 
+  //function to handle toggle checkbox and update the array data
   const handleCheckBox = (elementId) => {
     const checkboxUpdated = todoData.map((element) =>
       element.id === elementId
@@ -27,20 +28,24 @@ export const TodoList = () => {
     setTodoData(checkboxUpdated);
   };
 
+  //function to remove/reset id of currently edited element
   const handleDelete = (id) => {
     const afterDelete = todoData.filter((element) => element.id !== id);
     setTodoData(afterDelete);
   };
 
+  //function to set id and value of currently edited element
   const handleEdit = (todo, e) => {
     setEditTodo(todo.id);
     setEditTodoValue(todo.content);
   };
 
+  //function to cancel edit
   const handleCancle = () => {
     setEditTodo(null);
   };
 
+  //function to save the updated data and empty setEditTodo and setEditTodoValue
   const handlesave = (id) => {
     const editedTodoList = todoData.map((element) =>
       element.id === id
