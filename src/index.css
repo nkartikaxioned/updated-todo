@@ -114,14 +114,26 @@
 }
 
 @layer base {
-  *, *::after, *::before {
+  *,
+  *::after,
+  *::before {
     @apply box-border;
   }
-  body { @apply bg-background text-foreground; }
-  h1 { @apply text-4xl; }
-  h2 { @apply text-2xl; }
-  h3 { @apply text-lg; }
-  h4 { @apply text-l; }
+  body {
+    @apply bg-background text-foreground;
+  }
+  h1 {
+    @apply text-4xl;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+  h3 {
+    @apply text-lg;
+  }
+  h4 {
+    @apply text-l;
+  }
 
   .wrapper {
     max-width: 900px;
@@ -129,19 +141,29 @@
     margin: 0 auto;
   }
 
-  button { @apply cursor-pointer; }
+  button {
+    @apply cursor-pointer;
+  }
 
-  .custom-orange-border { @apply border border-orange-400; }
+  .custom-orange-border {
+    @apply border border-orange-400;
+  }
 
-  .table-bg-gradient { @apply bg-linear-to-r from-orange-400 to-orange-600; }
+  .table-bg-gradient {
+    @apply bg-linear-to-r from-orange-400 to-orange-600;
+  }
 
-  textarea { @apply border border-gray-400 bg-transparent px-3 py-1  }
+  textarea {
+    @apply border border-gray-400 bg-transparent px-3 py-1;
+  }
 
-  table.custom-orange-border { @apply w-4/5 border-collapse border rounded-[8px] overflow-hidden border-spacing-0 }
+  table.custom-orange-border {
+    @apply w-4/5 border-collapse border rounded-[8px] overflow-hidden border-spacing-0;
+  }
 }
 
 .switch {
-  @apply w-12 h-7 relative bg-orange-200 rounded-full
+  @apply w-12 h-7 relative bg-orange-200 rounded-full;
 }
 
 .switch .slider {
@@ -157,7 +179,5 @@
 }
 
 body:has(.slider.dark) {
-  @apply bg-gray-700
+  @apply bg-gray-700;
 }
-
-

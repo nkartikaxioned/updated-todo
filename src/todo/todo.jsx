@@ -17,7 +17,7 @@ export const Todo = () => {
     setDisplayInput,
     setFilteredTodoData,
     emptyTodoMessage,
-    toggleDarkMode
+    toggleDarkMode,
   } = useTodoContext();
 
   //function to toggle textarea for adding todo
@@ -31,7 +31,7 @@ export const Todo = () => {
       value === "checked" ? todoData.filter((todo) => todo.checked) : todoData
     );
   };
-// ${toggleDarkMode === "light" ? 'light' : 'dark'}
+  // ${toggleDarkMode === "light" ? 'light' : 'dark'}
   return (
     <div className="wrapper">
       <DarkMode />
@@ -47,18 +47,44 @@ export const Todo = () => {
             <SelectTrigger className="w-[180px] bg-gradient-to-r from-orange-400 to-orange-600 text-white focus:outline-none focus:ring-0 focus-visible:ring-0 border-none shadow-sm">
               <SelectValue className="text-white" />
             </SelectTrigger>
-            <SelectContent  className={`${toggleDarkMode === "light" ? 'bg-white' : 'bg-orange-200 border-orange-700'}`}>
-              <SelectItem className={`${toggleDarkMode === "light" ? 'focus:bg-orange-200' : 'focus:bg-orange-300'}`} value="all">
+            <SelectContent
+              className={`${
+                toggleDarkMode === "light"
+                  ? "bg-white"
+                  : "bg-orange-200 border-orange-700"
+              }`}
+            >
+              <SelectItem
+                className={`${
+                  toggleDarkMode === "light"
+                    ? "focus:bg-orange-200"
+                    : "focus:bg-orange-300"
+                }`}
+                value="all"
+              >
                 All
               </SelectItem>
-              <SelectItem className={`${toggleDarkMode === "light" ? 'focus:bg-orange-200' : 'focus:bg-orange-300'}`} value="checked">
+              <SelectItem
+                className={`${
+                  toggleDarkMode === "light"
+                    ? "focus:bg-orange-200"
+                    : "focus:bg-orange-300"
+                }`}
+                value="checked"
+              >
                 Checked
               </SelectItem>
             </SelectContent>
           </Select>
         </div>
         {todoData.length === 0 && (
-          <div className={`p-20 ${toggleDarkMode === "dark" ? 'text-white' : 'text-black'}`}>{emptyTodoMessage}</div>
+          <div
+            className={`p-20 ${
+              toggleDarkMode === "dark" ? "text-white" : "text-black"
+            }`}
+          >
+            {emptyTodoMessage}
+          </div>
         )}
         {todoData.length > 0 && <TodoList />}
         <div className="flex justify-center items-center pt-5 w-full md:w-4/5">
