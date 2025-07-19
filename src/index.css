@@ -41,6 +41,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --text-xl: 18.72px;
   --text-l: 16px;
+  --text-0: 0;
 }
 
 :root {
@@ -138,4 +139,25 @@
 
   table.custom-orange-border { @apply w-4/5 border-collapse border rounded-[8px] overflow-hidden border-spacing-0 }
 }
+
+.switch {
+  @apply w-12 h-7 relative bg-orange-200 rounded-full
+}
+
+.switch .slider {
+  @apply h-5 w-5 flex justify-center items-center absolute top-1 left-1 right-0 bottom-0 bg-orange-400 rounded-full transition-all;
+}
+
+.switch .slider.light {
+  @apply transform translate-x-0;
+}
+
+.switch .slider.dark {
+  @apply transform translate-x-5;
+}
+
+body:has(.slider.dark) {
+  @apply bg-gray-700
+}
+
 

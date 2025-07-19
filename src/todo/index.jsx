@@ -4,7 +4,7 @@ export const TodoContext = createContext();
 export const TodoDataProvider = ({ children }) => {
   const localKey = "Todo-App";
   const date = new Date();
-  
+
   const time = date.toLocaleTimeString([], {
     hour: "numeric",
     minute: "numeric",
@@ -28,6 +28,7 @@ export const TodoDataProvider = ({ children }) => {
   const [editTodoValue, setEditTodoValue] = useState("");
   const [filteredTodoData, setFilteredTodoData] = useState([]);
   const [filterValue, setFilterValue] = useState("all");
+  const [toggleDarkMode, setToggleDarkMode] = useState("light");
 
   const [emptyTodoMessage, setEmptyTodoMessage] = useState(
     "So peaceful... Add a task to bring some action 💡."
@@ -69,6 +70,8 @@ export const TodoDataProvider = ({ children }) => {
         setFilterValue,
         emptyTodoMessage,
         emptyCheckedMessage,
+        toggleDarkMode, 
+        setToggleDarkMode
       }}
     >
       {children}

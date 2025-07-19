@@ -15,6 +15,7 @@ export const TodoList = () => {
     filteredTodoData,
     setFilteredTodoData,
     emptyCheckedMessage,
+    toggleDarkMode
   } = useTodoContext();
 
   //function to handle toggle checkbox and update the array data
@@ -63,7 +64,7 @@ export const TodoList = () => {
   };
 
   if (filteredTodoData.length === 0) {
-    return <div className="p-20">{emptyCheckedMessage}</div>;
+    return <div className={`p-20 ${toggleDarkMode === "dark" ? 'text-white' : 'text-black'}`}>{emptyCheckedMessage}</div>;
   }
 
   if (filteredTodoData.length > 0) {
@@ -77,10 +78,10 @@ export const TodoList = () => {
             <th className="px-3.5 md:px-5 py-2.5">Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className={`${toggleDarkMode === "dark" ? 'bg-orange-100' : 'bg-transparent'}`}>
           {filteredTodoData.map((currentTodo) => {
             return (
-              <tr key={currentTodo.id} className="hover:bg-orange-100 h-24">
+              <tr key={currentTodo.id} className={`h-24 ${toggleDarkMode === "dark" ? 'hover:bg-orange-200' : 'hover:bg-orange-100'}`}>
                 <td className="px-3.5 md:px-5 py-2.5 text-center h-24">
                   <input
                     className="accent-orange-400 h-3.5 md:h-4 w-3.5 md:w-4"
@@ -107,7 +108,7 @@ export const TodoList = () => {
                   )}
                 </td>
                 <td className="flex flex-col text-center px-5 py-2.5 text-gray-500 h-24 justify-center">
-                  <spa className="text-[12px] md:text-[14px]">{currentTodo.time}</spa>
+                  <span className="text-[12px] md:text-[14px]">{currentTodo.time}</span>
                   <span className="pt-0.5 text-[12px] md:text-[14px]">{currentTodo.date}</span>
                 </td>
                 <td className="align-middle text-center">
