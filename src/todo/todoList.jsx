@@ -15,6 +15,7 @@ export const TodoList = () => {
     setEditTodoValue,
     filteredTodoData,
     setFilteredTodoData,
+    emptyCheckedMessage,
   } = useContext(TodoContext);
 
   //function to handle toggle checkbox and update the array data
@@ -62,31 +63,35 @@ export const TodoList = () => {
     setEditTodoValue(null);
   };
 
+  if (filteredTodoData.length === 0) {
+    return <div className="p-20">{emptyCheckedMessage}</div>;
+  }
+
   if (filteredTodoData.length > 0) {
     return (
       <table className="custom-orange-border shadow mt-5">
         <thead>
           <tr className="text-white table-bg-gradient">
-            <th className="px-5 py-2.5">Status</th>
-            <th className="px-5 py-2.5">Todo</th>
-            <th className="px-5 py-2.5">Created at</th>
-            <th className="px-5 py-2.5">Actions</th>
+            <th className="px-3.5 md:px-5 py-2.5">Status</th>
+            <th className="px-3.5 md:px-5 py-2.5">Todo</th>
+            <th className="px-3.5 md:px-5 py-2.5">Created at</th>
+            <th className="px-3.5 md:px-5 py-2.5">Actions</th>
           </tr>
         </thead>
         <tbody>
           {filteredTodoData.map((currentTodo) => {
             return (
               <tr key={currentTodo.id} className="hover:bg-orange-100 h-24">
-                <td className="px-5 py-2.5 text-center h-24">
+                <td className="px-3.5 md:px-5 py-2.5 text-center h-24">
                   <input
-                    className="accent-orange-400 h-4 w-4"
+                    className="accent-orange-400 h-3.5 md:h-4 w-3.5 md:w-4"
                     checked={currentTodo.checked}
                     type="checkbox"
                     onChange={(e) => handleCheckBox(currentTodo.id)}
                   />
                 </td>
                 <td
-                  className={`px-5 py-2.5 w-80 ${
+                  className={`px-3.5 md:px-5 py-2.5 w-80 text-[14px] md:text-[16px] ${
                     currentTodo.checked
                       ? "line-through decoration-orange-700"
                       : null
@@ -103,13 +108,13 @@ export const TodoList = () => {
                   )}
                 </td>
                 <td className="flex flex-col text-center px-5 py-2.5 text-gray-500 h-24 justify-center">
-                  <span>{currentTodo.time}</span>
-                  <span className="pt-0.5">{currentTodo.date}</span>
+                  <spa className="text-[12px] md:text-[14px]">{currentTodo.time}</spa>
+                  <span className="pt-0.5 text-[12px] md:text-[14px]">{currentTodo.date}</span>
                 </td>
                 <td className="align-middle text-center">
                   {editTodo === currentTodo.id ? (
                     <>
-                      <button className="px-5 py-2.5 pr-1.5" title="Edit Todo">
+                      <button className="px-0 md:px-5 py-2.5 pr-1.5" title="Edit Todo">
                         <MdOutlineCancel
                           size={20}
                           className="hover:fill-orange-400"
@@ -118,7 +123,7 @@ export const TodoList = () => {
                         />
                       </button>
                       <button
-                        className="px-5 py-2.5 pl-1.5"
+                        className="px-0 md:px-5 py-2.5 pl-1.5"
                         title="Save"
                         onClick={() => handlesave(currentTodo.id)}
                       >
@@ -127,7 +132,7 @@ export const TodoList = () => {
                     </>
                   ) : (
                     <>
-                      <button className="px-5 py-2.5 pr-1.5" title="Edit Todo">
+                      <button className="px-0 md:px-5 py-2.5 pr-1.5" title="Edit Todo">
                         <MdOutlineEditNote
                           size={25}
                           className="hover:fill-orange-400"
@@ -135,7 +140,7 @@ export const TodoList = () => {
                         />
                       </button>
                       <button
-                        className="px-5 py-2.5 pl-1.5"
+                        className="px-0 md:px-5 py-2.5 pl-1.5"
                         title="Delete"
                         onClick={() => handleDelete(currentTodo.id)}
                       >

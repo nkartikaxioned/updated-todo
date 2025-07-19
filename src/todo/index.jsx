@@ -25,6 +25,12 @@ export const TodoDataProvider = ({ children }) => {
   const [editTodoValue, setEditTodoValue] = useState("");
   const [filteredTodoData, setFilteredTodoData] = useState([]);
   const [filterValue, setFilterValue] = useState("all");
+  const [emptyTodoMessage, setEmptyTodoMessage] = useState(
+    "So peaceful... Add a task to bring some action 💡."
+  );
+  const [emptyCheckedMessage, setEmptyCheckedMessage] = useState(
+    "🕵️ Nothing to see here. Try changing the filter!"
+  );
 
   useEffect(() => {
     localStorage.setItem(localKey, JSON.stringify(todoData));
@@ -56,6 +62,8 @@ export const TodoDataProvider = ({ children }) => {
         setFilteredTodoData,
         filterValue,
         setFilterValue,
+        emptyTodoMessage,
+        emptyCheckedMessage,
       }}
     >
       {children}

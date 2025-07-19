@@ -16,6 +16,7 @@ export const Todo = () => {
     displayInput,
     setDisplayInput,
     setFilteredTodoData,
+    emptyTodoMessage,
   } = useContext(TodoContext);
 
   //function to toggle textarea for adding todo
@@ -33,7 +34,9 @@ export const Todo = () => {
   return (
     <div className="wrapper">
       <div className="flex flex-col justify-center items-center">
-        <h2 className="text-orange-400 font-semibold mb-6">Todo App :</h2>
+        <h2 className="bg-linear-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent font-bold mb-6 mt-12">
+          Todo App :
+        </h2>
         <div className="outline-0 ring-0 focus:ring-0 w-4/5">
           <Select
             defaultValue="all"
@@ -52,11 +55,14 @@ export const Todo = () => {
             </SelectContent>
           </Select>
         </div>
-        {todoData && <TodoList />}
-        <div className="flex justify-center items-center pt-5">
+        {todoData.length === 0 && (
+          <div className="p-20">{emptyTodoMessage}</div>
+        )}
+        {todoData.length > 0 && <TodoList />}
+        <div className="flex justify-center items-center pt-5 w-full md:w-4/5">
           {displayInput && <UserInput />}
           <button
-            className={` border border-orange-400 rounded-2xl px-3 py-1.5 table-bg-gradient ${
+            className={` border border-orange-400 rounded-2xl px-3 py-1.5 table-bg-gradient text-white font-semibold ${
               displayInput ? "ml-3" : "ml-0"
             } `}
             onClick={handleButtonCLick}

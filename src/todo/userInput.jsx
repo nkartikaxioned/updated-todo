@@ -4,13 +4,8 @@ import { MdLibraryAdd } from "react-icons/md";
 import { Textarea } from "@/components/ui/textarea";
 
 export const UserInput = () => {
-  const {
-    setTodoData,
-    userInputRef,
-    time,
-    currentDate,
-    generateId,
-  } = useContext(TodoContext);
+  const { setTodoData, userInputRef, time, currentDate, generateId } =
+    useContext(TodoContext);
 
   const id = generateId();
 
@@ -34,7 +29,7 @@ export const UserInput = () => {
   };
 
   return (
-    <form className="flex" onSubmit={handleFormSubmit}>
+    <form className="flex w-3/5 md:w-1/2" onSubmit={handleFormSubmit}>
       <Textarea
         type="text"
         className="min-w-36"
@@ -42,7 +37,11 @@ export const UserInput = () => {
         placeholder="Need a remainder?"
       />
       <button className="ml-2">
-        <MdLibraryAdd size={30} className="md:cursor-pointer" title="Add Todo"/>
+        <MdLibraryAdd
+          size={30}
+          className="md:cursor-pointer"
+          title="Add Todo"
+        />
       </button>
     </form>
   );
