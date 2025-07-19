@@ -1,11 +1,10 @@
-import { useContext, useId } from "react";
-import { TodoContext } from ".";
+import { useTodoContext } from ".";
 import { MdLibraryAdd } from "react-icons/md";
 import { Textarea } from "@/components/ui/textarea";
 
 export const UserInput = () => {
   const { setTodoData, userInputRef, time, currentDate, generateId } =
-    useContext(TodoContext);
+    useTodoContext();
 
   const id = generateId();
 

@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { TodoContext } from ".";
+import { useTodoContext } from ".";
 import { MdDelete, MdOutlineCancel, MdOutlineEditNote } from "react-icons/md";
 import { IoMdSave } from "react-icons/io";
 
@@ -16,7 +15,7 @@ export const TodoList = () => {
     filteredTodoData,
     setFilteredTodoData,
     emptyCheckedMessage,
-  } = useContext(TodoContext);
+  } = useTodoContext();
 
   //function to handle toggle checkbox and update the array data
   const handleCheckBox = (elementId) => {

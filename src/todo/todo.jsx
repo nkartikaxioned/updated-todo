@@ -1,6 +1,5 @@
-import { useContext } from "react";
 import { UserInput } from "./userInput";
-import { TodoContext } from ".";
+import { useTodoContext } from ".";
 import { TodoList } from "./todoList";
 import {
   Select,
@@ -17,7 +16,7 @@ export const Todo = () => {
     setDisplayInput,
     setFilteredTodoData,
     emptyTodoMessage,
-  } = useContext(TodoContext);
+  } = useTodoContext();
 
   //function to toggle textarea for adding todo
   const handleButtonCLick = () => {

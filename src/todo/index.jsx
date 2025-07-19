@@ -1,4 +1,4 @@
-import { createContext, useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 export const TodoContext = createContext();
 export const TodoDataProvider = ({ children }) => {
@@ -70,3 +70,9 @@ export const TodoDataProvider = ({ children }) => {
     </TodoContext.Provider>
   );
 };
+
+//custom Hook to reduce import lines 
+export const useTodoContext = () => {
+  const context = useContext(TodoContext);
+  return context;
+}
