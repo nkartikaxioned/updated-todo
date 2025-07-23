@@ -4,18 +4,10 @@ import { IoMdSave } from "react-icons/io";
 
 export const TodoList = () => {
   const {
-    todoData,
-    setTodoData,
     time,
     currentDate,
-    editTodo,
-    setEditTodo,
-    editTodoValue,
-    setEditTodoValue,
-    filteredTodoData,
-    setFilteredTodoData,
-    emptyCheckedMessage,
-    toggleDarkMode,
+    state,
+    dispatch
   } = useTodoContext();
 
   //function to handle toggle checkbox and update the array data

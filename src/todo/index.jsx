@@ -1,8 +1,14 @@
-import { createContext, use, useEffect, useReducer, useRef, useState } from "react";
+import {
+  createContext,
+  use,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 
 export const TodoContext = createContext();
 export const TodoDataProvider = ({ children }) => {
-
   const localKey = "Todo-App";
   const initialState = {
     todoData: () => {
@@ -13,25 +19,34 @@ export const TodoDataProvider = ({ children }) => {
     editTodoValue: "",
     filteredTodoData: [],
     filterValue: "all",
-    toggleDarkMode: "light",
+    theme: "light",
     emptyTodoMessage: "So peaceful... Add a task to bring some action 💡.",
-    emptyCheckedMessage: "🕵️ Nothing to see here. Try changing the filter!"
-  }
+    emptyCheckedMessage: "🕵️ Nothing to see here. Try changing the filter!",
+  };
 
   const reducer = (state, action) => {
+    switch (state.action) {
+      case "Toggle_Theme":
+        return {
+          ...state,
+          theme: state.theme === "light" ? "dark" : "light",
+        };
 
-  }
+      default:
+        return state;
+    }
+  };
 
   const date = new Date();
   const currentDate = date.toLocaleDateString();
   const userInputRef = useRef(null);
-  
+
   const time = date.toLocaleTimeString([], {
     hour: "numeric",
     minute: "numeric",
     hour12: true,
   });
-  
+
   const generateId = () =>
     `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   const [editTodo, setEditTodo] = useState("");
@@ -72,26 +87,12 @@ export const TodoDataProvider = ({ children }) => {
   return (
     <TodoContext.Provider
       value={{
-        todoData,
-        setTodoData,
         userInputRef,
         time,
         currentDate,
-        displayInput,
-        setDisplayInput,
         generateId,
-        editTodo,
-        setEditTodo,
-        editTodoValue,
-        setEditTodoValue,
-        filteredTodoData,
-        setFilteredTodoData,
-        filterValue,
-        setFilterValue,
-        emptyTodoMessage,
-        emptyCheckedMessage,
-        toggleDarkMode, 
-        setToggleDarkMode
+        state,
+        dispatch,
       }}
     >
       {children}
@@ -99,8 +100,8 @@ export const TodoDataProvider = ({ children }) => {
   );
 };
 
-//custom Hook to reduce import lines 
+//custom Hook to reduce import lines
 export const useTodoContext = () => {
   const context = use(TodoContext);
   return context;
-}
+};
