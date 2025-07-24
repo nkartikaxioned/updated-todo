@@ -10,23 +10,6 @@ export const TodoList = () => {
     dispatch
   } = useTodoContext();
 
-  //function to handle toggle checkbox and update the array data
-  const handleCheckBox = (elementId) => {
-    const checkboxUpdated = todoData.map((element) =>
-      element.id === elementId
-        ? { ...element, checked: !element.checked }
-        : element
-    );
-
-    setTodoData(checkboxUpdated);
-  };
-
-  //function to remove/reset id of currently edited element
-  const handleDelete = (id) => {
-    const afterDelete = todoData.filter((element) => element.id !== id);
-    setTodoData(afterDelete);
-  };
-
   //function to set id and value of currently edited element
   const handleEdit = (todo, e) => {
     setEditTodo(todo.id);
@@ -83,7 +66,7 @@ export const TodoList = () => {
             toggleDarkMode === "dark" ? "bg-orange-100" : "bg-transparent"
           }`}
         >
-          {filteredTodoData.map((currentTodo) => {
+          {state.filteredTodoData.map((currentTodo) => {
             return (
               <tr
                 key={currentTodo.id}
@@ -98,7 +81,7 @@ export const TodoList = () => {
                     className="accent-orange-400 h-3.5 md:h-4 w-3.5 md:w-4"
                     checked={currentTodo.checked}
                     type="checkbox"
-                    onChange={(e) => handleCheckBox(currentTodo.id)}
+                    onChange={(e) => dispatch({type: "checkbox_toggle", action: currentTodo.id})}
                   />
                 </td>
                 <td
@@ -163,7 +146,7 @@ export const TodoList = () => {
                       <button
                         className="px-0 md:px-5 py-2.5 pl-1.5"
                         title="Delete"
-                        onClick={() => handleDelete(currentTodo.id)}
+                        onClick={() => dispatch({type: "Delete", action: currentTodo.id})}
                       >
                         <MdDelete size={20} className="hover:fill-red-500" />
                       </button>

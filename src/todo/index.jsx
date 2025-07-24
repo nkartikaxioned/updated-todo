@@ -25,11 +25,29 @@ export const TodoDataProvider = ({ children }) => {
   };
 
   const reducer = (state, action) => {
-    switch (state.action) {
+    switch (action.type) {
       case "Toggle_Theme":
         return {
           ...state,
           theme: state.theme === "light" ? "dark" : "light",
+        };
+
+      case "checkbox_toggle":
+        return {
+          ...state,
+          todoData: state.todoData.map((todo) =>
+            todo.id === action.payload
+              ? { ...todo, checked: !todo.checked }
+              : todo
+          ),
+        };
+
+      case "Delete":
+        return {
+          ...state,
+          todoData: state.todoData.filter(
+            (element) => element.id !== action.payload
+          ),
         };
 
       default:
