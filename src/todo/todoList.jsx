@@ -10,12 +10,6 @@ export const TodoList = () => {
     dispatch
   } = useTodoContext();
 
-  //function to set id and value of currently edited element
-  const handleEdit = (todo, e) => {
-    setEditTodo(todo.id);
-    setEditTodoValue(todo.content);
-  };
-
   //function to cancel edit
   const handleCancle = () => {
     setEditTodo(null);
@@ -91,7 +85,7 @@ export const TodoList = () => {
                       : null
                   }`}
                 >
-                  {editTodo === currentTodo.id ? (
+                  {editTodoId === currentTodo.id ? (
                     <textarea
                       className="border border-orange-400 rounded-md max-h-20 focus:outline-none"
                       value={editTodoValue}
@@ -110,7 +104,7 @@ export const TodoList = () => {
                   </span>
                 </td>
                 <td className="align-middle text-center">
-                  {editTodo === currentTodo.id ? (
+                  {editTodoId === currentTodo.id ? (
                     <>
                       <button
                         className="px-0 md:px-5 py-2.5 pr-1.5"
@@ -120,7 +114,7 @@ export const TodoList = () => {
                           size={20}
                           className="hover:fill-orange-400"
                           title="Cancel Edit"
-                          onClick={() => handleCancle()}
+                          onClick={() => dispatch({type: "Cancel_Edit"})}
                         />
                       </button>
                       <button
@@ -140,7 +134,7 @@ export const TodoList = () => {
                         <MdOutlineEditNote
                           size={25}
                           className="hover:fill-orange-400"
-                          onClick={(e) => handleEdit(currentTodo, e)}
+                          onClick={(e) => dispatch({type: "Edit_todo", id: currentTodo.id, currentTodoValue: currentTodo.content})}
                         />
                       </button>
                       <button

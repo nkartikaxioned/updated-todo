@@ -16,6 +16,7 @@ export const TodoDataProvider = ({ children }) => {
       return storedTodo ? JSON.parse(storedTodo) : [];
     },
     displayInput: false,
+    editTodoId: "",
     editTodoValue: "",
     filteredTodoData: [],
     filterValue: "all",
@@ -36,7 +37,7 @@ export const TodoDataProvider = ({ children }) => {
         return {
           ...state,
           todoData: state.todoData.map((todo) =>
-            todo.id === action.payload
+            todo.id === action.id
               ? { ...todo, checked: !todo.checked }
               : todo
           ),
@@ -46,9 +47,16 @@ export const TodoDataProvider = ({ children }) => {
         return {
           ...state,
           todoData: state.todoData.filter(
-            (element) => element.id !== action.payload
+            (element) => element.id !== action.id
           ),
         };
+
+      case "Edit_todo":
+        return {
+          ...state,
+          editTodoId: action.id,
+          editTodoValue: action.currentTodoValue
+        }
 
       default:
         return state;
