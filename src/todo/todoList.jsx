@@ -4,42 +4,35 @@ import { IoMdSave } from "react-icons/io";
 
 export const TodoList = () => {
   const {
-    time,
-    currentDate,
     state,
     dispatch
   } = useTodoContext();
 
-  //function to cancel edit
-  const handleCancle = () => {
-    setEditTodo(null);
-  };
-
   //function to save the updated data and empty setEditTodo and setEditTodoValue
-  const handlesave = (id) => {
-    const editedTodoList = todoData.map((element) =>
-      element.id === id
-        ? {
-            ...element,
-            content: editTodoValue,
-            time: time,
-            currentDate: currentDate,
-          }
-        : element
-    );
-    setTodoData(editedTodoList);
-    setEditTodo(null);
-    setEditTodoValue(null);
-  };
+  // const handlesave = (id) => {
+  //   const editedTodoList = todoData.map((element) =>
+  //     element.id === id
+  //       ? {
+  //           ...element,
+  //           content: editTodoValue,
+  //           time: time,
+  //           currentDate: currentDate,
+  //         }
+  //       : element
+  //   );
+  //   setTodoData(editedTodoList);
+  //   setEditTodo(null);
+  //   setEditTodoValue(null);
+  // };
 
   if (filteredTodoData.length === 0) {
     return (
       <div
         className={`p-20 ${
-          toggleDarkMode === "dark" ? "text-white" : "text-black"
+          state.theme === "dark" ? "text-white" : "text-black"
         }`}
       >
-        {emptyCheckedMessage}
+        {state.emptyCheckedMessage}
       </div>
     );
   }
@@ -89,7 +82,7 @@ export const TodoList = () => {
                     <textarea
                       className="border border-orange-400 rounded-md max-h-20 focus:outline-none"
                       value={editTodoValue}
-                      onChange={(e) => setEditTodoValue(e.target.value)}
+                      onChange={(e) => dispatch({type: "Set_EditTodoValue", action: e.target.value})}
                     ></textarea>
                   ) : (
                     currentTodo.content
@@ -120,7 +113,7 @@ export const TodoList = () => {
                       <button
                         className="px-0 md:px-5 py-2.5 pl-1.5"
                         title="Save"
-                        onClick={() => handlesave(currentTodo.id)}
+                        onClick={() => dispatch({type: "Save_Edit", id: currentTodo.id})}
                       >
                         <IoMdSave size={20} className="hover:fill-red-500" />
                       </button>
@@ -140,7 +133,7 @@ export const TodoList = () => {
                       <button
                         className="px-0 md:px-5 py-2.5 pl-1.5"
                         title="Delete"
-                        onClick={() => dispatch({type: "Delete", action: currentTodo.id})}
+                        onClick={() => dispatch({type: "Delete", id: currentTodo.id})}
                       >
                         <MdDelete size={20} className="hover:fill-red-500" />
                       </button>

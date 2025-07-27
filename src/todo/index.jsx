@@ -10,6 +10,19 @@ import {
 export const TodoContext = createContext();
 export const TodoDataProvider = ({ children }) => {
   const localKey = "Todo-App";
+  const date = new Date();
+  const currentDate = date.toLocaleDateString();
+  const userInputRef = useRef(null);
+
+  const time = date.toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+
+  const generateId = () =>
+    `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
   const initialState = {
     todoData: () => {
       const storedTodo = localStorage.getItem(localKey);
@@ -37,9 +50,7 @@ export const TodoDataProvider = ({ children }) => {
         return {
           ...state,
           todoData: state.todoData.map((todo) =>
-            todo.id === action.id
-              ? { ...todo, checked: !todo.checked }
-              : todo
+            todo.id === action.id ? { ...todo, checked: !todo.checked } : todo
           ),
         };
 
@@ -55,27 +66,64 @@ export const TodoDataProvider = ({ children }) => {
         return {
           ...state,
           editTodoId: action.id,
-          editTodoValue: action.currentTodoValue
-        }
+          editTodoValue: action.currentTodoValue,
+        };
+
+      case "Cancel_Edit":
+        return {
+          ...state,
+          editTodoValue: "",
+          editTodoId: "",
+        };
+
+      case "Set_EditTodoValue":
+        return {
+          ...state,
+          editTodoValue: action.action,
+        };
+
+      case "Save_Edit":
+        return {
+          ...state,
+          todoData: totodoData.map((element) => {
+            element.id === action.id
+              ? {
+                  ...element,
+                  content: state.editTodoValue,
+                  time: time,
+                  currentDate: currentDate,
+                }
+              : element;
+          }),
+          editTodoId: "",
+          editTodoValue: "",
+        };
+
+      case "Add_Todo":
+        return {
+          ...state,
+          todoData: [...state.todoData, action.payload],
+        };
+
+      case "Toggle_Input_Visibility":
+        return {
+          ...state,
+          displayInput: !displayInput,
+        };
+
+      case "Set_Filter":
+        return {
+          ...state,
+          filteredTodoData:
+            action.action === "checked"
+              ? state.todoData.filter((todo) => todo.checked)
+              : state.todoData,
+        };
 
       default:
         return state;
     }
   };
-
-  const date = new Date();
-  const currentDate = date.toLocaleDateString();
-  const userInputRef = useRef(null);
-
-  const time = date.toLocaleTimeString([], {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  });
-
-  const generateId = () =>
-    `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-  const [editTodo, setEditTodo] = useState("");
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -100,7 +148,7 @@ export const TodoDataProvider = ({ children }) => {
   // );
 
   useEffect(() => {
-    localStorage.setItem(localKey, JSON.stringify(todoData));
+    localStorage.setItem(localKey, JSON.stringify(state.todoData));
 
     const filtered =
       state.filterValue === "checked"

@@ -3,7 +3,7 @@ import { MdLibraryAdd } from "react-icons/md";
 import { Textarea } from "@/components/ui/textarea";
 
 export const UserInput = () => {
-  const { setTodoData, userInputRef, time, currentDate, generateId } =
+  const {state, dispatch, userInputRef, time, currentDate, generateId } =
     useTodoContext();
 
   const id = generateId();
@@ -21,7 +21,7 @@ export const UserInput = () => {
         time: time,
       };
 
-      setTodoData((prev) => [...prev, newTodo]);
+      setTodoData({type: "Add_Todo", action: newTodo});
 
       userInputRef.current.value = "";
     }
