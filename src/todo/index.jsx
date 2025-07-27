@@ -108,7 +108,7 @@ export const TodoDataProvider = ({ children }) => {
       case "Toggle_Input_Visibility":
         return {
           ...state,
-          displayInput: !displayInput,
+          displayInput: !state.displayInput,
         };
 
       case "Set_Filter":

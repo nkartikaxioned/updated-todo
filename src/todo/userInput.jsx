@@ -21,7 +21,7 @@ export const UserInput = () => {
         time: time,
       };
 
-      setTodoData({type: "Add_Todo", action: newTodo});
+      dispatch({type: "Add_Todo", action: newTodo});
 
       userInputRef.current.value = "";
     }

@@ -89,14 +89,14 @@ export const Todo = () => {
         )}
         {state.todoData.length > 0 && <TodoList />}
         <div className="flex justify-center items-center pt-5 w-full md:w-4/5">
-          {displayInput && <UserInput />}
+          {state.displayInput && <UserInput />}
           <button
             className={` border border-orange-400 rounded-2xl px-3 py-1.5 table-bg-gradient text-white font-semibold ${
-              displayInput ? "ml-3" : "ml-0"
+              state.displayInput ? "ml-3" : "ml-0"
             } `}
             onClick={() => dispatch({type:"Toggle_Input_Visibility"})}
           >
-            {displayInput ? "Cancel" : "Create Todo"}
+            {state.displayInput ? "Cancel" : "Create Todo"}
           </button>
         </div>
       </div>
