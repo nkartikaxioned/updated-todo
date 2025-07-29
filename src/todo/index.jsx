@@ -85,7 +85,7 @@ export const TodoDataProvider = ({ children }) => {
       case "Save_Edit":
         return {
           ...state,
-          todoData: totodoData.map((element) => {
+          todoData: state.todoData.map((element) => {
             element.id === action.id
               ? {
                   ...element,
