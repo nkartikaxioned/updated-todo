@@ -50,7 +50,9 @@ export const TodoDataProvider = ({ children }) => {
         return {
           ...state,
           todoData: state.todoData.map((todo) =>
-            todo.id === action.action ? { ...todo, checked: !todo.checked } : todo
+            todo.id === action.action
+              ? { ...todo, checked: !todo.checked }
+              : todo
           ),
         };
 
@@ -85,7 +87,7 @@ export const TodoDataProvider = ({ children }) => {
       case "Save_Edit":
         return {
           ...state,
-          todoData: state.todoData.map((element) => {
+          todoData: state.todoData.map((element) =>
             element.id === action.id
               ? {
                   ...element,
@@ -93,8 +95,8 @@ export const TodoDataProvider = ({ children }) => {
                   time: time,
                   currentDate: currentDate,
                 }
-              : element;
-          }),
+              : element
+          ),
           editTodoId: "",
           editTodoValue: "",
         };
@@ -123,8 +125,8 @@ export const TodoDataProvider = ({ children }) => {
       case "initial_filter":
         return {
           ...state,
-          filteredTodoData: action.action
-        }
+          filteredTodoData: action.action,
+        };
 
       default:
         return state;
@@ -161,7 +163,7 @@ export const TodoDataProvider = ({ children }) => {
         ? state.todoData.filter((todo) => todo.checked)
         : state.todoData;
 
-    dispatch({type:"initial_filter", action:filtered});
+    dispatch({ type: "initial_filter", action: filtered });
   }, [state.todoData, state.filterValue]);
 
   return (
