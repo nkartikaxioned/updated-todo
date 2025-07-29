@@ -50,7 +50,7 @@ export const TodoDataProvider = ({ children }) => {
         return {
           ...state,
           todoData: state.todoData.map((todo) =>
-            todo.id === action.id ? { ...todo, checked: !todo.checked } : todo
+            todo.id === action.action ? { ...todo, checked: !todo.checked } : todo
           ),
         };
 
