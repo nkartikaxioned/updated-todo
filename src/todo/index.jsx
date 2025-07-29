@@ -24,10 +24,10 @@ export const TodoDataProvider = ({ children }) => {
     `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
   const initialState = {
-    todoData: () => {
+    todoData: (() => {
       const storedTodo = localStorage.getItem(localKey);
       return storedTodo ? JSON.parse(storedTodo) : [];
-    },
+    })(),
     displayInput: false,
     editTodoId: "",
     editTodoValue: "",
@@ -102,7 +102,7 @@ export const TodoDataProvider = ({ children }) => {
       case "Add_Todo":
         return {
           ...state,
-          todoData: [...state.todoData, action.payload],
+          todoData: [...state.todoData, action.action],
         };
 
       case "Toggle_Input_Visibility":
@@ -119,6 +119,12 @@ export const TodoDataProvider = ({ children }) => {
               ? state.todoData.filter((todo) => todo.checked)
               : state.todoData,
         };
+
+      case "initial_filter":
+        return {
+          ...state,
+          filteredTodoData: action.action
+        }
 
       default:
         return state;
@@ -155,7 +161,7 @@ export const TodoDataProvider = ({ children }) => {
         ? state.todoData.filter((todo) => todo.checked)
         : state.todoData;
 
-    reducer("filter", filtered);
+    dispatch({type:"initial_filter", action:filtered});
   }, [state.todoData, state.filterValue]);
 
   return (

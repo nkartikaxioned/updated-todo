@@ -25,7 +25,7 @@ export const TodoList = () => {
   //   setEditTodoValue(null);
   // };
 
-  if (filteredTodoData.length === 0) {
+  if (state.filteredTodoData.length === 0) {
     return (
       <div
         className={`p-20 ${
@@ -37,7 +37,7 @@ export const TodoList = () => {
     );
   }
 
-  if (filteredTodoData.length > 0) {
+  if (state.filteredTodoData.length > 0) {
     return (
       <table className="custom-orange-border shadow mt-5">
         <thead>
@@ -50,7 +50,7 @@ export const TodoList = () => {
         </thead>
         <tbody
           className={`${
-            toggleDarkMode === "dark" ? "bg-orange-100" : "bg-transparent"
+            state.theme === "dark" ? "bg-orange-100" : "bg-transparent"
           }`}
         >
           {state.filteredTodoData.map((currentTodo) => {
@@ -58,7 +58,7 @@ export const TodoList = () => {
               <tr
                 key={currentTodo.id}
                 className={`h-24 ${
-                  toggleDarkMode === "dark"
+                  state.theme === "dark"
                     ? "hover:bg-orange-200"
                     : "hover:bg-orange-100"
                 }`}
@@ -78,10 +78,10 @@ export const TodoList = () => {
                       : null
                   }`}
                 >
-                  {editTodoId === currentTodo.id ? (
+                  {state.editTodoId === currentTodo.id ? (
                     <textarea
                       className="border border-orange-400 rounded-md max-h-20 focus:outline-none"
-                      value={editTodoValue}
+                      value={state.editTodoValue}
                       onChange={(e) => dispatch({type: "Set_EditTodoValue", action: e.target.value})}
                     ></textarea>
                   ) : (
@@ -97,7 +97,7 @@ export const TodoList = () => {
                   </span>
                 </td>
                 <td className="align-middle text-center">
-                  {editTodoId === currentTodo.id ? (
+                  {state.editTodoId === currentTodo.id ? (
                     <>
                       <button
                         className="px-0 md:px-5 py-2.5 pr-1.5"
