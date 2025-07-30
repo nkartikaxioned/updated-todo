@@ -8,23 +8,6 @@ export const TodoList = () => {
     dispatch
   } = useTodoContext();
 
-  //function to save the updated data and empty setEditTodo and setEditTodoValue
-  // const handlesave = (id) => {
-  //   const editedTodoList = todoData.map((element) =>
-  //     element.id === id
-  //       ? {
-  //           ...element,
-  //           content: editTodoValue,
-  //           time: time,
-  //           currentDate: currentDate,
-  //         }
-  //       : element
-  //   );
-  //   setTodoData(editedTodoList);
-  //   setEditTodo(null);
-  //   setEditTodoValue(null);
-  // };
-
   if (state.filteredTodoData.length === 0) {
     return (
       <div

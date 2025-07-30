@@ -14,25 +14,8 @@ export const Todo = () => {
   const {
     state,
     dispatch,
-    displayInput,
-    setDisplayInput,
-    setFilteredTodoData,
-    emptyTodoMessage,
-    toggleDarkMode,
   } = useTodoContext();
 
-  //function to toggle textarea for adding todo
-  // const handleButtonCLick = () => {
-  //   setDisplayInput(!displayInput);
-  // };
-
-  //function to filter the data based on dropdown data
-  // const handleValueChange = (value = "all") => {
-  //   setFilteredTodoData(
-  //     value === "checked" ? todoData.filter((todo) => todo.checked) : todoData
-  //   );
-  // };
-  // ${toggleDarkMode === "light" ? 'light' : 'dark'}
   return (
     <div className="wrapper">
       <DarkMode />

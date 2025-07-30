@@ -133,26 +133,6 @@ export const TodoDataProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // const [todoData, setTodoData] = useState(() => {
-  //   const storedTodo = localStorage.getItem(localKey);
-  //   return storedTodo ? JSON.parse(storedTodo) : [];
-  // });
-
-  // const [displayInput, setDisplayInput] = useState(false);
-
-  // const [editTodoValue, setEditTodoValue] = useState("");
-  // const [filteredTodoData, setFilteredTodoData] = useState([]);
-  // const [filterValue, setFilterValue] = useState("all");
-  // const [toggleDarkMode, setToggleDarkMode] = useState("light");
-
-  // const [emptyTodoMessage, setEmptyTodoMessage] = useState(
-  //   "So peaceful... Add a task to bring some action 💡."
-  // );
-
-  // const [emptyCheckedMessage, setEmptyCheckedMessage] = useState(
-  //   "🕵️ Nothing to see here. Try changing the filter!"
-  // );
-
   useEffect(() => {
     localStorage.setItem(localKey, JSON.stringify(state.todoData));
 
